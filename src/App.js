@@ -103,7 +103,7 @@ class App extends Component {
         <Home path="/" user={this.state.user}/>
         <Login path="/login" />
         <Meetings userID={this.state.userID} path="/meetings" meetings={this.state.meetings} addMeeting={this.addMeeting} />
-        <Attendees path="/attendees/:userID/:meetingsID" adminUser={this.state.userID} />
+        <Attendees path="/attendees/:userID/:meetingID" adminUser={this.state.userID} />
         <CheckIn path="/checkin/:userID/:meetingID"  />
         <Register path="/register" registerUser={this.registerUser} />
 
