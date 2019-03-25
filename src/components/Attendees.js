@@ -22,6 +22,7 @@ class Attendees extends React.Component {
                     attendeeID: item,
                     attendeeName: attendees[item].attendeeName,
                     attendeeEmail: attendees[item].attendeeEmail,
+                    star: attendees[item].star
                 })
             }
             this.setState({ displayAttendees: attendeesList})
@@ -39,7 +40,11 @@ class Attendees extends React.Component {
                     </h1>
                 </div>
                 </div>
-                <AttendeesList meetingID={this.props.meetingID} userID={this.props.userID} adminUser={this.props.adminUser} attendees={this.state.displayAttendees} />
+                <AttendeesList 
+                meetingID={this.props.meetingID} 
+                userID={this.props.userID} 
+                adminUser={this.props.adminUser} 
+                attendees={this.state.displayAttendees} />
             </div>
           
         )

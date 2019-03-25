@@ -1,5 +1,5 @@
 import React from 'react'
-import { GoTrashcan } from 'react-icons/go';
+import { GoTrashcan, GoStar } from 'react-icons/go';
 import firebase from '../components/Firebase'
 
 class AttendeesList extends React.Component {
@@ -10,8 +10,21 @@ class AttendeesList extends React.Component {
 
     deleteAttendee = (e, whichMeeting, whichAttendee) => {
         e.preventDefault()
-        const ref = firebase.database().ref(`meetings/${this.props.userID}/${whichMeeting}`)
+        const adminUser = this.props.adminUser
+        const ref = firebase.database().ref(`meetings/${adminUser}/${whichMeeting}/attendees/${whichAttendee}`)
         ref.remove();
+    }
+
+    toggleStar = (e, starRating, whichMeeting, whichAttendee) => {
+        e.preventDefault()
+        const adminUser = this.props.adminUser
+        const ref = firebase.database().ref(`meetings/${adminUser}/${whichMeeting}/attendees/${whichAttendee}/star`)
+        if (starRating === undefined) {
+            ref.set(true)
+        } else {
+            ref.set(!starRating)
+        }
+
     }
 
     render() {
@@ -25,7 +38,12 @@ class AttendeesList extends React.Component {
                             <div className={"card-body px-3 py-2 d-flex align-items-center" + (admin ? '' : 'justify-content-center') }>
 
                                 {admin && (
-                                    <div className="btn-group pr-2">
+                                    <div className="btn-group pr-2">                                    
+                                        <button className={"btn btn-sm "  + (item.star ? 'btn-info' : 'btn-outline-secondary')} 
+                                        title="Star Atendeed" 
+                                        onClick={e => this.toggleStar(e, item.star, this.props.meetingID, item.attendeeID)}>
+                                        <GoStar />
+                                        </button>
                                         <button className="btn btn-sm btn-outline-secondary" title="Delete Atendeed" onClick={e => this.deleteAttendee(e, this.props.meetingID, item.attendeeID)}>
                                         <GoTrashcan />
                                         </button>
