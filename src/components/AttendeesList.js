@@ -1,7 +1,18 @@
 import React from 'react'
 import { GoTrashcan } from 'react-icons/go';
+import firebase from '../components/Firebase'
 
 class AttendeesList extends React.Component {
+    constructor(props) {
+        super(props)
+        this.deleteAttendee = this.deleteAttendee.bind(this)
+    }
+
+    deleteAttendee = (e, whichMeeting, whichAttendee) => {
+        e.preventDefault()
+        const ref = firebase.database().ref(`meetings/${this.props.userID}/${whichMeeting}`)
+        ref.remove();
+    }
 
     render() {
         const admin = this.props.adminUser === this.props.userID ? true: false
