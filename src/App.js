@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Router, Link, navigate } from '@reach/router'
+import { Router, navigate } from '@reach/router'
 import firebase from './components/Firebase'
 
 import Home from './components/Home'
