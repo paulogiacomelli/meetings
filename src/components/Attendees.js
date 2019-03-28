@@ -1,7 +1,7 @@
 import React from 'react'
 import firebase from '../components/Firebase'
 import AttendeesList from '../components/AttendeesList'
-import { FaUndo } from 'react-icons/fa'
+import { FaUndo, FaRandom } from 'react-icons/fa'
 
 class Attendees extends React.Component {
 
@@ -9,10 +9,12 @@ class Attendees extends React.Component {
         super(props)
         this.state = {
             displayAttendees: [],
-            searchQuery: ''
+            searchQuery: '',
+            allAttendees: []
         }
         this.handleChange = this.handleChange.bind(this)
         this.resetQuery = this.resetQuery.bind(this)
+        this.chooseRandom = this.chooseRandom.bind(this)
     }
 
     componentDidMount() {
@@ -28,7 +30,10 @@ class Attendees extends React.Component {
                     star: attendees[item].star
                 })
             }
-            this.setState({ displayAttendees: attendeesList})
+            this.setState({ 
+                displayAttendees: attendeesList,
+                allAttendees: attendeesList
+            })
         })
 
     }
@@ -43,7 +48,16 @@ class Attendees extends React.Component {
 
 
     resetQuery() {
-        this.setState({searchQuery: ''})
+        this.setState({
+            searchQuery: '',
+            displayAttendees: this.state.allAttendees
+        })
+    }
+
+    chooseRandom() {
+        const randomAttendee = Math.floor(Math.random() * this.state.allAttendees.length)
+        this.resetQuery();
+        this.setState({displayAttendees: [this.state.allAttendees[randomAttendee]]})
     }
 
 
@@ -73,10 +87,16 @@ class Attendees extends React.Component {
                                 className="form-control" 
                                 onChange={this.handleChange} />
                                 <div class="input-group-append">
+                                    <button className="btn btn-sm btn-outline-info" title="Reset Search" onClick={() => this.chooseRandom()}>
+                                        <FaRandom />
+                                    </button>
+                                </div>
+                                <div class="input-group-append">
                                     <button className="btn btn-sm btn-outline-info" title="Reset Search" onClick={() => this.resetQuery()}>
                                         <FaUndo />
                                     </button>
                                 </div>
+                                
                             </div>
                         </div>                    
                     </div>

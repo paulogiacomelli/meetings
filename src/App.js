@@ -47,7 +47,8 @@ class App extends Component {
           for (let item in meetings) {
             meetingsList.push({
               meetingID: item,
-              meetingName: meetings[item].meetingName
+              meetingName: meetings[item].meetingName,
+              pin: meetings[item].pin
             })
           }
 
@@ -88,7 +89,7 @@ class App extends Component {
 
   addMeeting = meetingName => {
     const ref = firebase.database().ref(`meetings/${this.state.user.uid}`)
-    ref.push({meetingName: meetingName})
+    ref.push({meetingName: meetingName, pin: false})
   }
 
   render() {
