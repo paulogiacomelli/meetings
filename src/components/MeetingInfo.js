@@ -15,6 +15,7 @@ class MeetingInfo extends React.Component {
             meetingDescription: '',
             meetingStart: new Date(),
             meetingEnd: new Date(),
+            check: false
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -26,13 +27,14 @@ class MeetingInfo extends React.Component {
     componentDidMount() {
         const ref = firebase.database().ref(`meetings/${this.props.userID}/${this.props.meetingID}`)
         ref.on('value', snapshot => {
-            let items = snapshot.val()            
+            let item = snapshot.val() 
             this.setState({
-                meetingName: items.meetingName,
-                meetingLocation: items.meetingLocation,
-                meetingDescription: items.meetingDescription,
-                meetingStart: items.meetingStart,
-                meetingEnd: items.meetingEnd
+                meetingName: item.meetingName,
+                meetingLocation: item.meetingLocation,
+                meetingDescription: item.meetingDescription,
+                meetingStart: item.meetingStart,
+                meetingEnd: item.meetingEnd,
+                check: item.meetingDescription ?  true : false
             })
         })
     }
@@ -40,7 +42,6 @@ class MeetingInfo extends React.Component {
     handleChange(e) {
         const itemName = e.target.name;
         const itemValue = e.target.value;
-        console.log(itemName)
 
         this.setState({ [itemName]: itemValue })
     }
@@ -59,6 +60,9 @@ class MeetingInfo extends React.Component {
             meetingStart: this.state.meetingStart,
             meetingEnd: this.state.meetingEnd,
         })
+
+        this.setState({check: !this.state.check})
+
         navigate(`/meetings/${this.props.userID}/${this.props.meetingID}`)
 
     }
@@ -166,10 +170,15 @@ class MeetingInfo extends React.Component {
                             
                             </section>
                             <div className="form-group mb-0">
-                            <AddToCalendar 
+                            { this.state.check ?  
+                                <AddToCalendar 
                                 event={event}
                                 listItems={calendars} 
-                            />
+                                buttonLabel="Add to Calendar"
+                                />
+                            : <button className="btn btn-primary">Add Event</button>
+                            }
+                            
                           
                             </div>
                         </div>
