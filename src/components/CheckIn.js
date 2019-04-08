@@ -34,7 +34,6 @@ class CheckIn extends React.Component {
     }
 
     render() {
-
         return(
             <form className="mt-3" onSubmit={this.handleSubmit}>
                 <div className="container">

@@ -30,30 +30,31 @@ class Meetings extends React.Component {
         return(
             <div className="container mt-4">
                 <div className="row justify-content-center">
-                    <div className="col-md-8 text-center">
+                    <div className="col-sm-8 text-center mb-4">
                     <h1 className="font-weight-light">Add a Meeting</h1>
                     <div className="card bg-light">
                         <div className="card-body text-center">
                         <form
-                            className="formgroup"
+                            className="form"
                             onSubmit={this.handleSubmit}>
-                            <div className="input-group input-group-lg">
-                            <input
-                                onChange={this.handleChange}
-                                value={this.state.meetingName}
-                                type="text"
-                                className="form-control"
-                                name="meetingName"
-                                placeholder="Meeting name"
-                                aria-describedby="buttonAdd"/>
-                            <div className="input-group-append">
-                                <button
-                                type="submit"
-                                className="btn btn-sm btn-info"
-                                id="buttonAdd">
-                                +
-                                </button>
-                            </div>
+                            <div className="input-group">
+                                <input
+                                    onChange={this.handleChange}
+                                    value={this.state.meetingName}
+                                    type="text"
+                                    className="form-control"
+                                    name="meetingName"
+                                    placeholder="Meeting name"
+                                    aria-describedby="buttonAdd"/>
+                                    {/*<Geosuggest placeholder="Meeting location" inputClassName="form-control"/>*/}
+                                <div className="input-group-append">
+                                    <button
+                                    type="submit"
+                                    className="btn btn-info"
+                                    id="buttonAdd">
+                                    + Add Meeting
+                                    </button>
+                                </div>
                             </div>
                         </form>
                         </div>
@@ -61,7 +62,7 @@ class Meetings extends React.Component {
                     </div>
 
                 <div className="col-11 col-md-6 text-center">
-                    <div className="card border-top-0 rounded-0">
+                    <div className="card border-0 rounded-0">
                         {this.props.meetings && this.props.meetings.length ? (
                             <div className='card-body py-2'>
                                 <h4 className="card-title font-weight-light m-0">Your Meetings</h4>
@@ -75,10 +76,9 @@ class Meetings extends React.Component {
                         )}
                     </div>
                 </div>
-                    
-
-                </div>
+                
             </div>
+        </div>
         )
     }
 

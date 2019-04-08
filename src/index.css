@@ -6,3 +6,17 @@ input, nav-item {
     font-weight: 200;
     line-height: 110%;
 }
+
+.react-add-to-calendar__dropdown > ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.outlook-link, .google-link, .apple-link{
+    color: black;
+}
+
+.fa {
+    margin-right: 5px;
+}

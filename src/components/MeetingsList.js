@@ -1,6 +1,6 @@
 import React from 'react'
 import firebase from '../components/Firebase'
-import { GoTrashcan, GoListUnordered, GoPin } from 'react-icons/go'
+import { GoTrashcan, GoListUnordered, GoPin, GoCalendar } from 'react-icons/go'
 import { FaLink } from 'react-icons/fa'
 import { navigate } from '@reach/router';
 
@@ -20,13 +20,23 @@ class MeetingsList extends React.Component {
     pinMeeting = (e, whichMeeting, pin) => {
         e.preventDefault()
         const ref = firebase.database().ref(`meetings/${this.props.userID}/${whichMeeting}/pin`)
-        console.log(ref)
         if (pin === undefined) {
             ref.set(true)
         } else {
             ref.set(!pin)
         }
     }
+
+    // viewAgenda = (e, whichMeeting) => {
+    //     e.preventDefault()
+    //     const ref = firebase.database().ref(`meetings/${this.props.userID}/${whichMeeting}/agenda`)
+    //     console.log(ref)
+    //     if (pin === undefined) {
+    //         ref.set(true)
+    //     } else {
+    //         ref.set(!pin)
+    //     }
+    // }
 
     render() {
 
@@ -54,9 +64,13 @@ class MeetingsList extends React.Component {
                         <button className="btn btn-sm btn-outline-secondary" title="Attendees List" onClick={() => navigate(`/attendees/${this.props.userID}/${item.meetingID}`)}>
                         <GoListUnordered />
                         </button>
+                        <button className="btn btn-sm btn-outline-secondary" title="Meeting Information" onClick={() => navigate(`/meetings/${this.props.userID}/${item.meetingID}`)}>
+                        <GoCalendar />
+                        </button>
+                        
                     </section>
                     <section className="pl-3 text-left align-self-center">
-                        {item.meetingName}
+                        {item.meetingName}      
                     </section>
                     
                 </div>
